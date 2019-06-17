@@ -22,12 +22,14 @@ model = None
 prev_image_array = None
 
 
-class SimplePIController:
-    def __init__(self, Kp, Ki):
+class SimplePIDController:
+    def __init__(self, Kp, Ki, Kd):
         self.Kp = Kp
         self.Ki = Ki
+        self.Kd = Kd
         self.set_point = 0.
         self.error = 0.
+        self.error_last = 0.0
         self.integral = 0.
 
     def set_desired(self, desired):
@@ -39,11 +41,12 @@ class SimplePIController:
 
         # integral error
         self.integral += self.error
+        delta = self.Kp * self.error + self.Ki * self.integral + self.Kd * (self.error-self.error_last)
+        self.error_last = self.error
+        return delta
 
-        return self.Kp * self.error + self.Ki * self.integral
 
-
-controller = SimplePIController(0.1, 0.002)
+controller = SimplePIDController(0.1, 0.01, 0.1)
 set_speed = 9
 controller.set_desired(set_speed)
 
