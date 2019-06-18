@@ -99,11 +99,15 @@ Additionally, after the first few epochs, the data set was expanded by some more
 #### 4. Results
 
 After initially training only on the provided data for 10 epochs we already get a quite decent result for the driving behavior of the car (model1.h5):
+
 [![Model 1][image4]](https://www.youtube.com/watch?v=QdZUaFdkQiA)
+
 The car completes the lap while staying on the drivable part of the road and only occasionally crossing the lane markings. At 1:28 it looks like the car interprets the street fencing as the lane line instead of the actual yellow lane markings. At 2:44 it looks like the car is trying to avoid the shadow despite not being a convertible.
 
 I then tried to further train the model with the expanded data set (model2.h5):
+
 [![Model 2][image5]](https://www.youtube.com/watch?v=0ISQxJv6g5Q)
+
 The results are rather mixed. The car still completes the lap (even at higher speed) but produces many more driving mistakes. However, it seems to be able to self-correct even quite big steering mistakes (see 1:26).
 
 Even further training actually diminishes the performance of the model (probably due to overfitting). A better way to improve the model would be to have another look at the training data. One could try to record smoother center line driving or find other ways to adjust the training data (for example shifts or perspective transforms of the training images).
